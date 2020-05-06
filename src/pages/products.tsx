@@ -1,10 +1,21 @@
-import React from 'react';
-import styles from './products.css';
+import { connect } from 'umi';
+import ProductList from '@/components/ProductList';
 
-export default () => {
+const Products = ({ dispatch, products }) => {
+  function handleDelete(id) {
+    dispatch({
+      type: 'products/delete',
+      payload: id,
+    });
+  }
   return (
     <div>
-      <h1 className={styles.title}>Page products</h1>
+      <h2>List of Products</h2>
+      <ProductList onDelete={handleDelete} products={products} />
     </div>
   );
-}
+};
+
+export default connect(({ products }) => ({
+  products,
+}))(Products);
